@@ -5,23 +5,23 @@ services:
   - docker
 
 before_install:
-  - docker build -t amirleshem/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t amirle/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true amirleshem/react-test npm test
+  - docker run -e CI=true amirle/react-test npm test
 
 after_success:
-  - docker build -t amirleshem/multi-client ./client
-  - docker build -t amirleshem/multi-nginx ./nginx
-  - docker build -t amirleshem/multi-server ./server
-  - docker build -t amirleshem/multi-worker ./worker
+  - docker build -t amirle/multi-client ./client
+  - docker build -t amirle/multi-nginx ./nginx
+  - docker build -t amirle/multi-server ./server
+  - docker build -t amirle/multi-worker ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push amirleshem/multi-client
-  - docker push amirleshem/multi-nginx
-  - docker push amirleshem/multi-server
-  - docker push amirleshem/multi-worker
+  - docker push amirle/multi-client
+  - docker push amirle/multi-nginx
+  - docker push amirle/multi-server
+  - docker push amirle/multi-worker
 
 deploy:
   provider: elasticbeanstalk
